@@ -23,7 +23,7 @@ public class Category {
 
 
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category" )
     private List<Course> courses;
 
 

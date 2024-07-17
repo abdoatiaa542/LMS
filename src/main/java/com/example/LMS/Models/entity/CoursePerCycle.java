@@ -23,7 +23,7 @@ public class CoursePerCycle {
 
 
     @ManyToOne
-    @JoinColumn(name = "cycle_id" )
+    @JoinColumn(name = "cycle_id"   ,  insertable = false, updatable = false)
     private Cycle cycle;
 
 
@@ -31,8 +31,8 @@ public class CoursePerCycle {
     @JoinTable(
             name = "teachers_per_course",
             joinColumns = {
-                    @JoinColumn(name = "course_id"),
-                    @JoinColumn(name = "cycle_id")
+                    @JoinColumn(name = "course_id" , referencedColumnName = "course_id" ),
+                    @JoinColumn(name = "cycle_id" , referencedColumnName = "cycle_id" )
             },
             inverseJoinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
     )
@@ -41,7 +41,7 @@ public class CoursePerCycle {
 
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "course_id" ,  insertable = false, updatable = false)
     private Course course;
 
 

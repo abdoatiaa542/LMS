@@ -21,6 +21,7 @@ public class AdminController {
     @Autowired
     private AdminMapper adminMapper;
 
+
     @GetMapping("/{username}")
     public AdminDto getAdmin(@PathVariable String username) {
         return adminService.loadAdmin(username);

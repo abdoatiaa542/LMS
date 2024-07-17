@@ -36,4 +36,7 @@ public interface AttendanceMapper {
     default List<AttendanceIdDto> mapAttendanceIdList(List<AttendanceId> ids) {
         return ids.stream().map(this::toDto).collect(Collectors.toList());
     }
+
+    List<AttendanceDto> toDtoList(List<Attendance> allAttendance);
+
 }

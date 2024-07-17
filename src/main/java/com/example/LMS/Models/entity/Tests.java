@@ -28,8 +28,8 @@ public class Tests {
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "course_id", referencedColumnName = "course_id"),
-            @JoinColumn(name = "cycle_id", referencedColumnName = "cycle_id")
+            @JoinColumn(name = "course_id", referencedColumnName = "course_id" , insertable = false, updatable = false),
+            @JoinColumn(name = "cycle_id", referencedColumnName = "cycle_id" , insertable = false, updatable = false),
     })
     private CoursePerCycle coursePerCycle;
 
