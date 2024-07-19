@@ -6,6 +6,6 @@ import com.example.LMS.Models.entity.Course;
 
 
 @Repository
-public interface CourseRepository extends JpaRepository<Course, String> {
+public interface CourseRepository extends JpaRepository<Course, Long> {
 
 }

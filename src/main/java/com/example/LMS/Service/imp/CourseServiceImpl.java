@@ -3,12 +3,14 @@ package com.example.LMS.Service.imp;
 import com.example.LMS.Service.utils.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;  // import the List class
+
 import com.example.LMS.Models.entity.Course;
 import com.example.LMS.Reposatory.CourseRepository;
 
 @Service
-public class CourseServiceImpl  implements CourseService {
+public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private CourseRepository courseRepository;
@@ -19,8 +21,9 @@ public class CourseServiceImpl  implements CourseService {
     }
 
     @Override
-    public Course getCourseById(String id) {
-        return courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Course not found"));
+    public Course getCourseById(Long id) {
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
     }
 
     @Override
@@ -29,7 +32,7 @@ public class CourseServiceImpl  implements CourseService {
     }
 
     @Override
-    public Course updateCourse(String id, Course course) {
+    public Course updateCourse(Long id, Course course) {
         Course existingCourse = courseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
         existingCourse.setCourseDescription(course.getCourseDescription());
@@ -39,7 +42,7 @@ public class CourseServiceImpl  implements CourseService {
     }
 
     @Override
-    public void deleteCourse(String id) {
+    public void deleteCourse(Long id) {
         courseRepository.deleteById(id);
     }
 }

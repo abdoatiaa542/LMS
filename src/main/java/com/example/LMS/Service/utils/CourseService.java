@@ -9,11 +9,11 @@ public interface CourseService {
 
     List<Course> getAllCourses();
 
-    Course getCourseById(String id);
+    Course getCourseById(Long id);
 
     Course createCourse(Course course);
 
-    Course updateCourse(String id, Course course);
+    Course updateCourse(Long id, Course course);
 
-    void deleteCourse(String id);
+    void deleteCourse(Long id);
 }

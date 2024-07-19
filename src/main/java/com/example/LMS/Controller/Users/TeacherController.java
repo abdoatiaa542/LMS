@@ -24,7 +24,6 @@ public class TeacherController {
     private TeacherMapper teacherMapper;
 
 
-
     @GetMapping("/all")
     public List<TeacherDto> getAllTeachers() {
         List<Teacher> teachers = teacherService.getAllTeachers();
@@ -44,29 +43,19 @@ public class TeacherController {
         return ResponseEntity.notFound().build();
     }
 
-
-//
-//    @GetMapping("/{username}")
-//    public ResponseEntity<TeacherDto> getTeacherByUsername(@PathVariable String username) {
-//        Optional<Teacher> teacher = Optional.ofNullable(teacherService.loadTeacher(username));
-//        if (teacher.isPresent()) {
-//            return ResponseEntity.ok(teacherMapper.toDto(teacher.get()));
-//        }
-//        return ResponseEntity.notFound().build();
-//    }
-
-    @PostMapping
-    public Teacher createTeacher(@RequestBody Teacher teacher) {
-        return teacherService.createTeacher(teacher);
+    @PostMapping("/save")
+    public TeacherDto createTeacher(@RequestBody TeacherDto teacher) {
+        // to entity
+        Teacher teacherEntity = teacherMapper.toEntity(teacher);
+        return teacherMapper.toDto(teacherService.createTeacher(teacherEntity));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Teacher> updateTeacher(@PathVariable Long id, @RequestBody Teacher teacherDetails) {
-        return ResponseEntity.ok(teacherService.updateTeacher(id, teacherDetails));
+    public ResponseEntity<TeacherDto> updateTeacher(@PathVariable Long id, @RequestBody TeacherDto teacherDetails) {
+        Teacher teacherEntity = teacherMapper.toEntity(teacherDetails);
+        teacherEntity.setTeacherId(id);
+        return ResponseEntity.ok(teacherMapper.toDto(teacherService.updateTeacher(id, teacherEntity)));
     }
-
-
-
 
 
     @DeleteMapping("/{id}")
