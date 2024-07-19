@@ -17,4 +17,15 @@ public class ClassDto implements Serializable {
     Date date;
     Time startTime;
     Time endTime;
+    Long teacherId;
+
+    public ClassDto(ClassIdDto id, String title, Date date, Time startTime, Time endTime, Long teacherId) {
+        this.id = id;
+        this.title = title;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.teacherId = teacherId;
+    }
+
 }

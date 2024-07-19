@@ -2,6 +2,8 @@ package com.example.LMS.Models.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +11,8 @@ import java.io.Serializable;
 
 
 @Embeddable
-@Getter
 @Setter
+@Getter
 public class ClassId implements Serializable {
 
     @Column(name = "course_id" , insertable=false, updatable=false)
@@ -18,7 +20,9 @@ public class ClassId implements Serializable {
     @Column(name = "cycle_id", insertable=false, updatable=false)
     Long cycleId;
     @Column(name = "class_no", insertable=false, updatable=false)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long classNo;
+
 
     public ClassId(Long courseId, Long cycleId, Long classNo) {
         this.courseId = courseId;
@@ -31,29 +35,4 @@ public class ClassId implements Serializable {
 
     }
 
-
-    // Getters and setters
-    public Long getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
-    }
-
-    public Long getCycleId() {
-        return cycleId;
-    }
-
-    public void setCycleId(Long cycleId) {
-        this.cycleId = cycleId;
-    }
-
-    public Long getClassNo() {
-        return classNo;
-    }
-
-    public void setClassNo(Long classNo) {
-        this.classNo = classNo;
-    }
 }

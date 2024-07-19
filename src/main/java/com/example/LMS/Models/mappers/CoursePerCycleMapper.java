@@ -36,4 +36,6 @@ public interface CoursePerCycleMapper {
     default List<CoursePerCycleIdDto> mapCoursePerCycleIdList(List<CoursePerCycleId> ids) {
         return ids.stream().map(this::toDto).collect(Collectors.toList());
     }
+
+    List<CoursePerCycleDto> toDtoList(List<CoursePerCycle> coursePerCycles);
 }

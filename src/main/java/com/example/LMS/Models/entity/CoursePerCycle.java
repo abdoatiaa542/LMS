@@ -23,7 +23,7 @@ public class CoursePerCycle {
 
 
     @ManyToOne
-    @JoinColumn(name = "cycle_id"   ,  insertable = false, updatable = false)
+    @JoinColumn(name = "cycle_id" ,insertable = false, updatable = false)
     private Cycle cycle;
 
 

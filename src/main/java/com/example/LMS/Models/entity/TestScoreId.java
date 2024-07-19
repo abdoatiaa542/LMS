@@ -21,7 +21,7 @@ public class TestScoreId implements Serializable {
     private Long cycleId;
     @Column(name = "test_no")
     private Long testNo;
-    @Column(name = "student_id")
+    @Column(name = "student_id"  )
     private Long studentId;
 
 

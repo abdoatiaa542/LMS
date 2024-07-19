@@ -1,10 +1,15 @@
 package com.example.LMS.Controller;
 
 
+import com.example.LMS.Models.dto.TestsDto;
+import com.example.LMS.Models.entity.TestId;
 import com.example.LMS.Models.entity.Tests;
+import com.example.LMS.Models.mappers.TestsMapper;
 import com.example.LMS.Service.utils.TestsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
 import java.util.List;
 
 
@@ -14,25 +19,31 @@ public class TestsController {
 
     @Autowired
     private TestsService testsService;
+    @Autowired
+    private TestsMapper testsMapper;
 
-    @GetMapping
-    public List<Tests> getAllTests() {
-        return testsService.getAllTests();
+
+
+    @GetMapping("/get_all_test")
+    public List<TestsDto> getAllTests() {
+        List<Tests> tests = testsService.getAllTests();
+        if (tests != null) {
+            return testsMapper.toDtoList(tests);
+        }
+        return Collections.emptyList();
     }
 
-//    @GetMapping("/{courseId}/{cycleId}/{testNo}")
-//    public ResponseEntity<Tests> getTestById(@PathVariable String courseId, @PathVariable String cycleId, @PathVariable int testNo) {
-//        Tests test = testsService.getTestById(courseId, cycleId, testNo);
-//        return ResponseEntity.ok(test);
-//    }
 
-    @PostMapping
-    public Tests saveTest(@RequestBody Tests test) {
-        return testsService.saveTest(test);
+    @PostMapping("/add_test")
+    public TestsDto createTests(@PathVariable Long course_id, @PathVariable Long cycle_id,@PathVariable Long test_no, @RequestBody TestsDto testsDto) {
+
+        Tests tests = testsMapper.toEntity(testsDto);
+        tests.setId(new TestId(course_id, cycle_id, test_no));
+        return testsMapper.toDto(testsService.saveTest(tests));
     }
 
-//    @DeleteMapping("/{courseId}/{cycleId}/{testNo}")
-//    public void deleteTest(@PathVariable String courseId, @PathVariable String cycleId, @PathVariable int testNo) {
-//        testsService.deleteTest(courseId, cycleId, testNo);
-//    }
+
+
+
+
 }

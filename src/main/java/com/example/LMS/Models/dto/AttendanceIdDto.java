@@ -12,4 +12,9 @@ import java.io.Serializable;
 public class AttendanceIdDto implements Serializable {
     ClassIdDto classId;
     Long studentId;
+
+    public AttendanceIdDto(ClassIdDto classId, Long studentId) {
+        this.classId = classId;
+        this.studentId = studentId;
+    }
 }

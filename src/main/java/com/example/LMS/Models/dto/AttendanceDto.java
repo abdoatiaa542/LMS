@@ -14,4 +14,15 @@ public class AttendanceDto implements Serializable {
     AttendanceIdDto id;
     Time timeArrive;
     Time timeLeave;
+
+      //  constructor
+
+
+
+    public AttendanceDto(AttendanceIdDto id, Time timeArrive, Time timeLeave) {
+        this.id = id;
+        this.timeArrive = timeArrive;
+        this.timeLeave = timeLeave;
+    }
+
 }

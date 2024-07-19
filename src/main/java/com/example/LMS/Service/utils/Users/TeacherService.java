@@ -8,12 +8,12 @@ import com.example.LMS.Models.entity.Teacher;
 public interface TeacherService {
     List<Teacher> getAllTeachers();
     Teacher loadTeacher(String username);
-    Teacher getTeacherById(String id);
+    Teacher getTeacherById(Long id);
 
     Teacher createTeacher(Teacher teacher);
 
-    Teacher updateTeacher(String id, Teacher teacher);
+    Teacher updateTeacher(Long id, Teacher teacher);
 
-    void deleteTeacher(String id);
+    void deleteTeacher(Long id);
 
 }

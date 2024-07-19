@@ -20,9 +20,18 @@ public class TestId implements Serializable {
     private Long courseId;
     @Column(name = "cycle_id", insertable=false, updatable=false)
     private Long cycleId;
-
     @Column(name = "test_no", insertable=false, updatable=false)
     private Long testNo;
+
+    // JPA requires a default constructor
+    public TestId() {
+    }
+
+    public TestId(Long courseId, Long cycleId, Long testNo) {
+        this.courseId = courseId;
+        this.cycleId = cycleId;
+        this.testNo = testNo;
+    }
 
 
 }

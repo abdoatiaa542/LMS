@@ -32,6 +32,8 @@ public class SecurityConfig {
             http.csrf().disable().authorizeHttpRequests((requests) -> requests
                     .requestMatchers("/admin/**").permitAll()
                     .requestMatchers("/api/attendance/**").permitAll()
+                    .requestMatchers("/classes/**").permitAll()
+                    .requestMatchers("/categories/**").permitAll()
                     .anyRequest().authenticated()
 
             );

@@ -40,4 +40,6 @@ public interface TestsMapper {
     default List<TestIdDto> mapTestIdList(List<TestId> ids) {
         return ids.stream().map(this::toDto).collect(Collectors.toList());
     }
+
+    List<TestsDto> toDtoList(List<Tests> allTests);
 }

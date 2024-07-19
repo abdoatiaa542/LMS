@@ -33,12 +33,13 @@ public class TeacherServiceImp implements TeacherService {
                         .collect(Collectors.toList()))
                 .build();
     }
-//
+
+
     public List<Teacher> getAllTeachers() {
         return teacherRepository.findAll();
     }
 
-    public Teacher getTeacherById(String id) {
+    public Teacher getTeacherById(Long id) {
         return teacherRepository
                 .findById(id)
                 .orElseThrow(() -> new RuntimeException("Teacher not found"));
@@ -48,7 +49,7 @@ public class TeacherServiceImp implements TeacherService {
         return teacherRepository.save(teacher);
     }
 
-    public Teacher updateTeacher(String id, Teacher teacherDetails) {
+    public Teacher updateTeacher(Long id, Teacher teacherDetails) {
         Teacher teacher = teacherRepository.findById(id).orElseThrow(() -> new RuntimeException("Teacher not found"));
         teacher.setName(teacherDetails.getName());
         teacher.setEmail(teacherDetails.getEmail());
@@ -56,7 +57,7 @@ public class TeacherServiceImp implements TeacherService {
         return teacherRepository.save(teacher);
     }
 
-    public void deleteTeacher(String id) {
+    public void deleteTeacher(Long id) {
         Teacher teacher = teacherRepository.findById(id).orElseThrow(() -> new RuntimeException("Teacher not found"));
         teacherRepository.delete(teacher);
     }

@@ -1,62 +1,53 @@
 package com.example.LMS.Controller;
 
+import com.example.LMS.Models.dto.CoursePerCycleDto;
 import com.example.LMS.Models.entity.CoursePerCycle;
+import com.example.LMS.Models.entity.CoursePerCycleId;
+import com.example.LMS.Models.mappers.CoursePerCycleMapper;
 import com.example.LMS.Service.imp.CoursePerCycleServiceImp;
+import com.example.LMS.Service.utils.CoursePerCycleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/course-per-cycle")
 public class CoursePerCycleController {
 
     @Autowired
-    private CoursePerCycleServiceImp coursePerCycleService;
+    private CoursePerCycleService coursePerCycleService;
+    @Autowired
+    private CoursePerCycleMapper coursePerCycleMapper;
 
-    @GetMapping
-    public List<CoursePerCycle> getAllCoursePerCycles() {
-        return coursePerCycleService.getAllCoursePerCycles();
+
+    @GetMapping("/all")
+    public List<CoursePerCycleDto> getAllCoursePerCycle() {
+        List<CoursePerCycle> coursePerCycles = coursePerCycleService.getAllCoursePerCycles();
+        if (coursePerCycles != null) {
+            return coursePerCycleMapper.toDtoList(coursePerCycles);
+        }
+        return Collections.emptyList();
     }
-//
-//
-//    @GetMapping("/{courseId}/{cycleId}")
-//    public ResponseEntity<CoursePerCycle> getCoursePerCycleById(@PathVariable String courseId, @PathVariable String cycleId) {
-//        CoursePerCycleId id = new CoursePerCycleId(courseId, cycleId);
-//        CoursePerCycle coursePerCycle = coursePerCycleService.getCoursePerCycleById(id);
-//        if (coursePerCycle != null) {
-//            return ResponseEntity.ok(coursePerCycle.get());
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 
 
-//    @PostMapping
-//    public CoursePerCycle createCoursePerCycle(@RequestBody CoursePerCycle coursePerCycle) {
-//        return coursePerCycleService.save(coursePerCycle);
-//    }
+    @GetMapping("/get_by_id/{courseId}/{cycleId}")
+    public ResponseEntity<CoursePerCycleDto> getCoursePerCycleById(@PathVariable Long courseId, @PathVariable Long cycleId) {
+        Optional<CoursePerCycle> coursePerCycle = Optional.ofNullable(coursePerCycleService.getCoursePerCycleById(new CoursePerCycleId(courseId, cycleId)));
+        if (coursePerCycle.isPresent()) {
+            return ResponseEntity.ok(coursePerCycleMapper.toDto(coursePerCycle.get()));
+        }
+        return ResponseEntity.notFound().build();
+    }
 
-//    @PutMapping("/{courseId}/{cycleId}")
-//    public ResponseEntity<CoursePerCycle> updateCoursePerCycle(@PathVariable String courseId, @PathVariable String cycleId, @RequestBody CoursePerCycle coursePerCycleDetails) {
-//        CoursePerCycleId id = new CoursePerCycleId(courseId, cycleId);
-//        Optional<CoursePerCycle> coursePerCycle = coursePerCycleService.findById(id);
-//
-//        if (coursePerCycle.isPresent()) {
-//            CoursePerCycle existingCoursePerCycle = coursePerCycle.get();
-//            existingCoursePerCycle.setCourseStartDate(coursePerCycleDetails.getCourseStartDate());
-//            existingCoursePerCycle.setCourseEndDate(coursePerCycleDetails.getCourseEndDate());
-//            final CoursePerCycle updatedCoursePerCycle = coursePerCycleService.save(existingCoursePerCycle);
-//            return ResponseEntity.ok(updatedCoursePerCycle);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 
-//    @DeleteMapping("/{courseId}/{cycleId}")
-//    public ResponseEntity<Void> deleteCoursePerCycle(@PathVariable String courseId, @PathVariable String cycleId) {
-//        CoursePerCycleId id = new CoursePerCycleId(courseId, cycleId);
-//        coursePerCycleService.deleteById(id);
-//        return ResponseEntity.noContent().build();
-//    }
+
+
+
+
 }
+
+

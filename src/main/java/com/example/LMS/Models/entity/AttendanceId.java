@@ -3,6 +3,7 @@ package com.example.LMS.Models.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Getter
 public class AttendanceId implements Serializable {
 
+    @Embedded
     @Column(name = "class_id")
     private ClassId classId;
     @Column(name = "student_id")

@@ -15,20 +15,12 @@ public interface ClassMapper {
 
     ClassMapper INSTANCE = Mappers.getMapper(ClassMapper.class);
 
-    @Mapping(target = "id", source = "id")
     ClassDto toDto(Class entity);
 
-    @Mapping(target = "id", source = "id")
     Class toEntity(ClassDto dto);
 
-    @Mapping(target = "courseId", source = "courseId")
-    @Mapping(target = "cycleId", source = "cycleId")
-    @Mapping(target = "classNo", source = "classNo")
     ClassId toEntity(ClassIdDto idDto);
 
-    @Mapping(target = "courseId", source = "courseId")
-    @Mapping(target = "cycleId", source = "cycleId")
-    @Mapping(target = "classNo", source = "classNo")
     ClassIdDto toDto(ClassId id);
 
     default List<ClassId> mapClassIdDtoList(List<ClassIdDto> dtos) {
@@ -38,4 +30,6 @@ public interface ClassMapper {
     default List<ClassIdDto> mapClassIdList(List<ClassId> ids) {
         return ids.stream().map(this::toDto).collect(Collectors.toList());
     }
+
+    List<ClassDto> toDtoList(List<Class> classes);
 }

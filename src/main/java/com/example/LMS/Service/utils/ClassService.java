@@ -12,6 +12,6 @@ public interface ClassService {
     List<Class> getAllClasses();
     Class getClassById(ClassId id);
     Class createClass(Class sclass);
-    Class updateClass(String id, Class sclass);
+    Class updateClass( Class sclass);
     void deleteClass(ClassId id);
 }

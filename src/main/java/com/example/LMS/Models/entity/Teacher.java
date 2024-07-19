@@ -1,6 +1,7 @@
 package com.example.LMS.Models.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,7 +32,7 @@ public class Teacher {
     @Column(nullable = false, length = 100)
     private String password;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     private List<String> teacherAuthorities;
 
 
@@ -45,7 +46,6 @@ public class Teacher {
 
 
 
-    
     public Teacher() {
 
     }

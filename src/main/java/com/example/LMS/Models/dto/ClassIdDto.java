@@ -13,4 +13,13 @@ public class ClassIdDto implements Serializable {
     Long courseId;
     Long cycleId;
     Long classNo;
+
+
+    public ClassIdDto(ClassId id) {
+        this.courseId = id.getCourseId();
+        this.cycleId = id.getCycleId();
+        this.classNo = id.getClassNo();
+    }
+
+
 }
