@@ -11,32 +11,26 @@ import org.springframework.web.bind.annotation.*;
 import com.example.LMS.Models.entity.Admin;
 import com.example.LMS.Service.utils.Users.AdminService;
 
+import java.util.Collections;
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
     private AdminService adminService;
-
     @Autowired
     private AdminMapper adminMapper;
 
-    @GetMapping("/{username}")
-    public AdminDto getAdmin(@PathVariable String username) {
-    }
 
-    @GetMapping("/load")
-    public ResponseEntity<AdminDto> loadAdmin(@RequestParam String username) {
-        System.out.println("انا جوه الميثود ");
-        try {
-            System.out.println("انا جوه التراي");   
-            AdminDto adminDto = adminService.loadAdmin(username);
-//            System.out.println(adminDto);
-            return new ResponseEntity(adminDto, HttpStatus.OK);
-        } catch (UsernameNotFoundException e) {
-            System.out.println("كسك احمرررررررررررررررر");
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST); // Return 400 Bad Request
+    @GetMapping("/all")
+    public List<AdminDto> loadAdmin() {
+        List<Admin> admins = adminService.getAllAdmins();
+        if (admins != null) {
+            return adminMapper.toDtoList(admins);
         }
+        return Collections.emptyList();
     }
 
     @PostMapping("/save")

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdminServiceImp implements AdminService {
 
@@ -21,6 +23,11 @@ public class AdminServiceImp implements AdminService {
 
     @Autowired
     private AdminMapper adminMapper;
+
+    @Override
+    public List<Admin> getAllAdmins() {
+        return adminRepo.findAll();
+    }
 
     public AdminDto loadAdmin(String username) {
         UserDetails userDetails = adminDetailsService.loadUserByUsername(username);
