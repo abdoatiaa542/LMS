@@ -34,31 +34,14 @@ public class Class {
     @Column(nullable = false)
     private Time endTime;
 
-    @Column( name = "teacher_id", nullable = false , insertable = false, updatable = false)
+    @Column(name = "teacher_id", nullable = false, insertable = false, updatable = false)
     private Long teacherId;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @ManyToOne
-    @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id"   , nullable = false , insertable = false, updatable = false)  //
+    @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id", nullable = false, insertable = false, updatable = false)
+    //
     private Teacher teacher;
-
 
 
     @ManyToOne
@@ -69,17 +52,8 @@ public class Class {
     private CoursePerCycle coursePerCycle;
 
 
-
     @OneToMany(mappedBy = "classes")
     private List<Attendance> attendances;
-
-
-
-
-
-
-
-
 
 
 }

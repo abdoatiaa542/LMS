@@ -26,32 +26,46 @@ public class AttendanceController {
 
     @Autowired
     private AttendanceService attendanceService;
-
     @Autowired
     private AttendanceMapper attendanceMapper;
 
-
+//
     @GetMapping("/all")
     public List<AttendanceDto> getAllAttendance() {
         List<Attendance> attendances = attendanceService.getAllAttendance();
         if (attendances != null) {
-            for (Attendance attendance : attendances) {
-                System.out.println("Processing Attendance: " + attendance);
-                if (attendance.getId() == null) {
-                    System.err.println("Attendance ID is null");
-                } else if (attendance.getId().getClassId() == null) {
-                    System.err.println("Class ID is null for Attendance ID: " + attendance.getId());
-                } else {
-                    System.out.println("Class ID: " + attendance.getId().getClassId());
-                    System.out.println("Course ID: " + attendance.getId().getClassId().getCourseId());
-                    System.out.println("Cycle ID: " + attendance.getId().getClassId().getCycleId());
-                    System.out.println("Class No: " + attendance.getId().getClassId().getClassNo());
-                }
-            }
             return attendanceMapper.toDtoList(attendances);
         }
         return Collections.emptyList();
     }
+
+//
+//    @GetMapping("/all")
+//    public List<AttendanceDto> getAllAttendance() {
+//        List<Attendance> attendances = attendanceService.getAllAttendance();
+//        if (attendances != null) {
+//            for (Attendance attendance : attendances) {
+//                System.out.println("Processing Attendance: " + attendance);
+//                if (attendance.getId() == null) {
+//                    System.err.println("Attendance ID is null");
+//                } else if (attendance.getId().getClassId() == null) {
+//                    System.err.println("Class ID is null for Attendance ID: " + attendance.getId());
+//                }
+//                else if (attendance.getId().getClassId().getCourseId() == null) {
+//                    System.err.println("Course ID is null for Attendance ID: " + attendance.getId());
+//                }
+//                else {
+//                    System.out.println("Class ID: " + attendance.getId().getClassId());
+//                    System.out.println("Course ID: " + attendance.getId().getClassId().getCourseId());
+//                    System.out.println("Cycle ID: " + attendance.getId().getClassId().getCycleId());
+//                    System.out.println("Class No: " + attendance.getId().getClassId().getClassNo());
+//                }
+//            }
+//
+//            return attendanceMapper.toDtoList(attendances);
+//        }
+//        return Collections.emptyList();
+//    }
 
 
 
@@ -73,21 +87,6 @@ public class AttendanceController {
        attendance.setId(new AttendanceId(new ClassId(courseId, cycleId, classNo), studentId));
         return attendanceMapper.toDto(attendanceService.saveAttendance(attendance));
     }
-
-
-
-//
-//    @PostMapping("/save/{courseId}/{cycleId}/{classNo}/{studentId}")
-//    public ResponseEntity<String> saveAttendance( @PathVariable Long courseId, @PathVariable Long cycleId, @PathVariable Long classNo, @RequestBody AttendanceDto attendanceDto) {
-//        Attendance attendance = attendanceMapper.toEntity(attendanceDto);
-//        Attendance attendance1 = attendanceService.saveAttendance(attendance);
-//        if (attendance1 != null) {
-//            return new ResponseEntity<>("Save successfully", HttpStatus.CREATED);
-//        }
-//        return new ResponseEntity<>("Save failed", HttpStatus.BAD_REQUEST);
-//    }
-
-
 
     // ubdate
     @PutMapping("/update/{courseId}/{cycleId}/{classNo}/{studentId}")

@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 public class AdminController {
 
     @Autowired
@@ -35,9 +35,6 @@ public class AdminController {
 
     @PostMapping("/save")
     public ResponseEntity<AdminDto> saveAdmin(@RequestBody AdminDto adminDto) {
-        // map dto to entity
-        // save the entity
-        // return the saved entity
         AdminDto savedAdmin = adminService.saveAdmin(adminDto);
         return new ResponseEntity(savedAdmin, HttpStatus.CREATED);
     }

@@ -3,27 +3,43 @@ package com.example.LMS.Controller;
 
 
 
+import java.util.Collections;
 import java.util.List;
 
+import com.example.LMS.Models.dto.EnrollmentDto;
 import com.example.LMS.Models.entity.Enrollment;
+import com.example.LMS.Models.mappers.EnrollmentMapper;
 import com.example.LMS.Service.utils.EnrollmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/enrollments")
+@RequestMapping("/api/enrollments")
 public class EnrollmentController {
 
     @Autowired
     private EnrollmentService enrollmentService;
 
+    @Autowired
+    private EnrollmentMapper enrollmentMapper;
 
 
-    @GetMapping
-    public List<Enrollment> getAllEnrollments() {
-        return enrollmentService.getAllEnrollments();
+
+    @GetMapping("/all")
+    public List<EnrollmentDto> getAllEnrollments() {
+        List<Enrollment> enrollments = enrollmentService.getAllEnrollments();
+        if (enrollments != null) {
+            return enrollmentMapper.toDtoList(enrollments);
+        }
+        return Collections.emptyList();
     }
+
+
+
+
+
+
 
     @GetMapping("/{courseId}/{cycleId}/{studentId}")
     public Enrollment getEnrollmentById(@PathVariable String courseId, @PathVariable String cycleId, @PathVariable String studentId) {
@@ -45,4 +61,6 @@ public class EnrollmentController {
         enrollmentService.deleteEnrollment(courseId, cycleId, studentId);
         return ResponseEntity.noContent().build();
     }
+
+
 }

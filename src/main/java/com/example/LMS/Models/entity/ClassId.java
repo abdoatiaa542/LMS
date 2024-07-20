@@ -16,11 +16,15 @@ import java.io.Serializable;
 public class ClassId implements Serializable {
 
     @Column(name = "course_id" , insertable=false, updatable=false)
-     Long courseId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long courseId;
+
     @Column(name = "cycle_id", insertable=false, updatable=false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long cycleId;
+
     @Column(name = "class_no", insertable=false, updatable=false)
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long classNo;
 
 

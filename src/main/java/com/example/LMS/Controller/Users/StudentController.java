@@ -23,7 +23,7 @@ public class StudentController {
     private StudentMapper studentMapper;
 
 
-    @GetMapping
+    @GetMapping("/all")
     public List<StudentDto> getAllStudents() {
         List<Student> students = studentService.getAllStudents();
         if (students != null) {

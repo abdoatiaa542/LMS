@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import java.sql.Time;
 
-
 @Entity
 @Setter
 @Getter
@@ -31,7 +30,6 @@ public class Attendance {
     @MapsId("studentId")
     @JoinColumn(name = "student_id")
     private Student student;
-
 
 
     @ManyToOne

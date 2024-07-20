@@ -38,4 +38,6 @@ public interface EnrollmentMapper {
     default List<EnrollmentIdDto> mapEnrollmentIdList(List<EnrollmentId> ids) {
         return ids.stream().map(this::toDto).collect(Collectors.toList());
     }
+
+    List<EnrollmentDto> toDtoList(List<Enrollment> enrollments);
 }

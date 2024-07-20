@@ -34,6 +34,17 @@ public class SecurityConfig {
                     .requestMatchers("/api/attendance/**").permitAll()
                     .requestMatchers("/classes/**").permitAll()
                     .requestMatchers("/categories/**").permitAll()
+                    .requestMatchers("/api/tests/**").permitAll()
+                    .requestMatchers("/api/users/**").permitAll()
+                    .requestMatchers("/api/auth/**").permitAll()
+                    .requestMatchers("/api/courses/**").permitAll()
+                    .requestMatchers("/api/cycles/**").permitAll()
+                    .requestMatchers("/api/students/**").permitAll()
+                    .requestMatchers("/api/teachers/**").permitAll()
+                    .requestMatchers("/api/test-scores/**").permitAll()
+                    .requestMatchers("/api/course-per-cycle/**").permitAll()
+                    .requestMatchers("/api/enrollments/**").permitAll()
+                    .requestMatchers("/api/admin/**").permitAll()
                     .anyRequest().authenticated()
 
             );
