@@ -333,13 +333,13 @@
 2024-07-07T01:36:01.710+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'jpa.named-queries#8'
 2024-07-07T01:36:01.711+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'jpa.AdminRepository.fragments#0'
 2024-07-07T01:36:01.713+03:00 DEBUG 17856 --- [LMS] [restartedMain] tor$SharedEntityManagerInvocationHandler : Creating new EntityManager for shared EntityManager invocation
-2024-07-07T01:36:01.714+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.beans.CachedIntrospectionResults     : Not strongly caching class [com.example.LMS.Models.entity.Admin] because it is not cache-safe
-2024-07-07T01:36:01.717+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.d.r.c.s.RepositoryFactorySupport     : Initializing repository instance for com.example.LMS.Reposatory.Users.AdminRepository…
+2024-07-07T01:36:01.714+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.beans.CachedIntrospectionResults     : Not strongly caching class [com.example.LMS.Models.entity.Users] because it is not cache-safe
+2024-07-07T01:36:01.717+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.d.r.c.s.RepositoryFactorySupport     : Initializing repository instance for com.example.LMS.Reposatory.Users.UsersRepository…
 2024-07-07T01:36:01.718+03:00 DEBUG 17856 --- [LMS] [restartedMain] tor$SharedEntityManagerInvocationHandler : Creating new EntityManager for shared EntityManager invocation
 2024-07-07T01:36:01.750+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.d.jpa.repository.query.NamedQuery    : Looking up named query Admin.findByUsername
 2024-07-07T01:36:01.753+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.d.jpa.repository.query.NamedQuery    : Did not find named query Admin.findByUsername
 2024-07-07T01:36:01.761+03:00 DEBUG 17856 --- [LMS] [restartedMain] tor$SharedEntityManagerInvocationHandler : Creating new EntityManager for shared EntityManager invocation
-2024-07-07T01:36:01.899+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.d.r.c.s.RepositoryFactorySupport     : Finished creation of repository instance for com.example.LMS.Reposatory.Users.AdminRepository.
+2024-07-07T01:36:01.899+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.d.r.c.s.RepositoryFactorySupport     : Finished creation of repository instance for com.example.LMS.Reposatory.Users.UsersRepository.
 2024-07-07T01:36:01.900+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Autowiring by type from bean name 'customAdminDetailsService' via constructor to bean named 'adminRepository'
 2024-07-07T01:36:01.902+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'studentController'
 2024-07-07T01:36:01.904+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'studentServiceImp'
@@ -686,7 +686,7 @@ jakarta.validation.NoProviderFoundException: Unable to create a Configuration, b
 2024-07-07T01:36:04.082+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Autowiring by type from bean name 'mbeanExporter' via factory method to bean named 'org.springframework.beans.factory.support.DefaultListableBeanFactory@1d52483'
 2024-07-07T01:36:04.089+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'mbeanServer'
 2024-07-07T01:36:04.091+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.springframework.jmx.support.JmxUtils   : Found MBeanServer: com.sun.jmx.mbeanserver.JmxMBeanServer@1ef7fe8e
-2024-07-07T01:36:04.096+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'org.springframework.boot.autoconfigure.admin.SpringApplicationAdminJmxAutoConfiguration'
+2024-07-07T01:36:04.096+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'org.springframework.boot.autoconfigure.users.SpringApplicationAdminJmxAutoConfiguration'
 2024-07-07T01:36:04.096+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Creating shared instance of singleton bean 'springApplicationAdminRegistrar'
 2024-07-07T01:36:04.096+03:00 DEBUG 17856 --- [LMS] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Autowiring by type from bean name 'springApplicationAdminRegistrar' via factory method to bean named 'environment'
 2024-07-07T01:36:04.099+03:00 DEBUG 17856 --- [LMS] [restartedMain] inMXBeanRegistrar$SpringApplicationAdmin : Application Admin MBean registered with name 'org.springframework.boot:type=Admin,name=SpringApplication'
@@ -1126,10 +1126,10 @@ Positive matches:
       - Cache org.springframework.boot.autoconfigure.cache.SimpleCacheConfiguration automatic cache type (CacheCondition)
 
    SpringApplicationAdminJmxAutoConfiguration matched:
-      - @ConditionalOnProperty (spring.application.admin.enabled=true) matched (OnPropertyCondition)
+      - @ConditionalOnProperty (spring.application.users.enabled=true) matched (OnPropertyCondition)
 
    SpringApplicationAdminJmxAutoConfiguration#springApplicationAdminRegistrar matched:
-      - @ConditionalOnMissingBean (types: org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar; SearchStrategy: all) did not find any beans (OnBeanCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.boot.users.SpringApplicationAdminMXBeanRegistrar; SearchStrategy: all) did not find any beans (OnBeanCondition)
 
    SpringBootWebSecurityConfiguration matched:
       - found 'session' scope (OnWebApplicationCondition)

@@ -1,16 +1,22 @@
 package com.example.LMS.Models.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "course_per_cycle")
 @Setter
 @Getter
+@NoArgsConstructor // ..
+@AllArgsConstructor  // ..
 public class CoursePerCycle {
+
 
     @EmbeddedId
     private CoursePerCycleId id;

@@ -5,6 +5,7 @@ import com.example.LMS.Models.entity.Course;
 import com.example.LMS.Models.mappers.CourseMapper;
 import com.example.LMS.Models.mappers.CoursePerCycleMapper;
 import com.example.LMS.Service.imp.CourseServiceImpl;
+import com.example.LMS.Service.utils.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +15,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/courses")
+@RequestMapping("/v1/courses")
 public class CourseController {
 
     @Autowired
-    private CourseServiceImpl courseService;
+    private CourseService courseService;
     @Autowired
     private CourseMapper courseMapper;
+
 
     @GetMapping("/all")
     public List<CourseDto> getAllCourses() {
@@ -33,10 +35,11 @@ public class CourseController {
 
     @GetMapping("/get_by_id/{id}")
     public ResponseEntity<CourseDto> getCourseById(@PathVariable Long id) {
-        Optional<Course> course = Optional.ofNullable(courseService.getCourseById(id));
-        if (course.isPresent()) {
-            return ResponseEntity.ok(courseMapper.toDto(course.get()));
+        Course course =courseService.getCourseById(id);
+        if (course != null) {
+            return ResponseEntity.ok(courseMapper.toDto(course));
         }
+
         return ResponseEntity.notFound().build();
     }
 

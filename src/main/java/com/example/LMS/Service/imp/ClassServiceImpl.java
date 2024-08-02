@@ -1,7 +1,6 @@
 package com.example.LMS.Service.imp;
 
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -25,16 +24,12 @@ public class ClassServiceImpl implements ClassService {
 
     @Override
     public Class getClassById(ClassId id) {
-        return classRepository.findById(id).orElse(null);
+        return classRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Class not found"));
     }
 
     @Override
-    public Class createClass(Class sclass) {
-        return classRepository.save(sclass);
-    }
-
-    @Override
-    public Class updateClass(Class sclass) {
+    public Class saveClass(Class sclass) {
         return classRepository.save(sclass);
     }
 

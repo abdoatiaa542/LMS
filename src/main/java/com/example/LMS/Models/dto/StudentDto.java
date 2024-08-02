@@ -13,11 +13,12 @@ import java.util.List;
 
 @Value
 public class StudentDto implements Serializable {
+
     Long id;
     String name;
     String email;
-    Date birthDate;
-    String phoneNumber;
+    Date birth_date;
+    String phone_number;
     String password;
-    List<String> studentAuthorities;
+
 }

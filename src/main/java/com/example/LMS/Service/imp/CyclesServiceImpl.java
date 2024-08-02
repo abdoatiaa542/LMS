@@ -21,7 +21,7 @@ public class CyclesServiceImpl implements CycleService {
     }
 
     @Override
-    public Cycle getCycleById(String id) {
+    public Cycle getCycleById(Long id) {
         return cyclesRepository.findById(id).orElse(null);
     }
 
@@ -31,7 +31,7 @@ public class CyclesServiceImpl implements CycleService {
     }
 
     @Override
-    public void deleteCycle(String id) {
+    public void deleteCycle(Long id) {
         cyclesRepository.deleteById(id);
     }
 }

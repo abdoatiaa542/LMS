@@ -6,13 +6,14 @@ import java.util.List;
 import com.example.LMS.Models.entity.Teacher;
 
 public interface TeacherService {
+
+    Teacher savaTeacher(Teacher teacher);
+
     List<Teacher> getAllTeachers();
-    Teacher loadTeacher(String username);
+
     Teacher getTeacherById(Long id);
 
-    Teacher createTeacher(Teacher teacher);
-
-    Teacher updateTeacher(Long id, Teacher teacher);
+    Teacher updateTeacher(long id, Teacher teacher);
 
     void deleteTeacher(Long id);
 

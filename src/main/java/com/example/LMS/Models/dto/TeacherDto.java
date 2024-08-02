@@ -11,10 +11,11 @@ import java.util.List;
  */
 @Value
 public class TeacherDto implements Serializable {
+
     Long teacherId;
     String name;
     String email;
-    String phoneNo;
+    String phone_no;
     String password;
-//    List<String> teacherAuthorities;
+
 }

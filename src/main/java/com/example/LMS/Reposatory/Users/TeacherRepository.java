@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
-    Optional<Teacher> findByName(String username);
+    Optional<Teacher> findByEmail(String email);
 
 }

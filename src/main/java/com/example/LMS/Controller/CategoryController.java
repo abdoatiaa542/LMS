@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("/v1/categories")
 public class CategoryController {
 
     @Autowired

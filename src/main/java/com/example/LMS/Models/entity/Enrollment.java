@@ -1,7 +1,9 @@
 package com.example.LMS.Models.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
@@ -10,6 +12,8 @@ import java.sql.Date;
 @Entity
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Enrollment {
 
     @EmbeddedId

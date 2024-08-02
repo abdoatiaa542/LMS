@@ -1,21 +1,19 @@
 package com.example.LMS.Controller;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
 import com.example.LMS.Models.dto.TestScoreDto;
-import com.example.LMS.Models.dto.TestScoreIdDto;
 import com.example.LMS.Models.entity.TestScore;
-import com.example.LMS.Models.entity.TestScoreId;
 import com.example.LMS.Models.mappers.TestScoreMapper;
 import com.example.LMS.Service.utils.TestScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/api/test-scores")
+@RequestMapping("/v1/test-scores")
 public class TestScoreController {
 
     @Autowired
@@ -34,31 +32,34 @@ public class TestScoreController {
         return Collections.emptyList();
     }
 
-    @GetMapping("/get_testScore_by_StudentId/{id}")
-    public ResponseEntity<TestScoreDto> getTestScoreById(@PathVariable Long student_id, @PathVariable Long course_id, @PathVariable Long cycle_id, @PathVariable Long test_no) {
-        Optional<TestScore> testScore = Optional.ofNullable(testScoreService.getTestScoreById(new TestScoreId(course_id, cycle_id, test_no, student_id)));
+    @GetMapping("/get_by_id/{courseId}")
+    public ResponseEntity<TestScoreDto> getTestScoreById(@PathVariable Long courseId) {
+        Optional<TestScore> testScore = Optional.ofNullable(testScoreService.getTestScoreById(courseId));
         if (testScore.isPresent()) {
             return ResponseEntity.ok(testScoreMapper.toDto(testScore.get()));
         }
         return ResponseEntity.notFound().build();
-
     }
 
 
-    @PostMapping("/add_score")
-    public TestScoreDto createTestScore(@PathVariable Long student_id, @PathVariable Long course_id, @PathVariable Long cycle_id, @PathVariable Long test_no, @RequestBody TestScoreDto testScoreDto) {
-        // entity
+    @PostMapping("/save")
+    public ResponseEntity<TestScoreDto> createTestScore(@RequestBody TestScoreDto testScoreDto) {
         TestScore testScore = testScoreMapper.toEntity(testScoreDto);
-        // add id to entity
-        testScore.setId(new TestScoreId(course_id, cycle_id, test_no, student_id));
-        // create score
-        return testScoreMapper.toDto(testScoreService.createTestScore(testScore));
+        return ResponseEntity.ok(testScoreMapper.toDto(testScoreService.createTestScore(testScore)));
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<TestScoreDto> updateTestScore(@PathVariable Long courseId, @RequestBody TestScoreDto testScoreDto) {
+        TestScore testScore = testScoreMapper.toEntity(testScoreDto);
+        testScore.setCourseId(courseId);
+        return ResponseEntity.ok(testScoreMapper.toDto(testScoreService.createTestScore(testScore)));
+    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTestScore(@PathVariable Long student_id, @PathVariable Long course_id, @PathVariable Long cycle_id, @PathVariable Long test_no, @RequestBody TestScoreDto testScoreDto) {
-        testScoreService.deleteTestScore(new TestScoreId(course_id, cycle_id, test_no, student_id));
+    @DeleteMapping("/delete/{courseId}")
+    public ResponseEntity<Void> deleteTestScore(@PathVariable Long courseId) {
+        testScoreService.deleteTestScore(courseId);
         return ResponseEntity.noContent().build();
     }
+
+
 }

@@ -2,16 +2,13 @@ package com.example.LMS.Controller;
 
 
 import com.example.LMS.Models.dto.AttendanceDto;
-import com.example.LMS.Models.dto.AttendanceIdDto;
 import com.example.LMS.Models.entity.Attendance;
 import com.example.LMS.Models.entity.AttendanceId;
 import com.example.LMS.Models.entity.ClassId;
 import com.example.LMS.Models.mappers.AttendanceMapper;
 import com.example.LMS.Service.utils.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.web.context.SaveContextOnUpdateOrErrorResponseWrapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -21,7 +18,7 @@ import java.util.Optional;
 //http://localhost:8080/swagger-ui.html
 
 @RestController
-@RequestMapping("/api/attendance")
+@RequestMapping("/v1/attendance")
 public class AttendanceController {
 
     @Autowired
@@ -29,7 +26,7 @@ public class AttendanceController {
     @Autowired
     private AttendanceMapper attendanceMapper;
 
-//
+    //
     @GetMapping("/all")
     public List<AttendanceDto> getAllAttendance() {
         List<Attendance> attendances = attendanceService.getAllAttendance();
@@ -39,58 +36,29 @@ public class AttendanceController {
         return Collections.emptyList();
     }
 
-//
-//    @GetMapping("/all")
-//    public List<AttendanceDto> getAllAttendance() {
-//        List<Attendance> attendances = attendanceService.getAllAttendance();
-//        if (attendances != null) {
-//            for (Attendance attendance : attendances) {
-//                System.out.println("Processing Attendance: " + attendance);
-//                if (attendance.getId() == null) {
-//                    System.err.println("Attendance ID is null");
-//                } else if (attendance.getId().getClassId() == null) {
-//                    System.err.println("Class ID is null for Attendance ID: " + attendance.getId());
-//                }
-//                else if (attendance.getId().getClassId().getCourseId() == null) {
-//                    System.err.println("Course ID is null for Attendance ID: " + attendance.getId());
-//                }
-//                else {
-//                    System.out.println("Class ID: " + attendance.getId().getClassId());
-//                    System.out.println("Course ID: " + attendance.getId().getClassId().getCourseId());
-//                    System.out.println("Cycle ID: " + attendance.getId().getClassId().getCycleId());
-//                    System.out.println("Class No: " + attendance.getId().getClassId().getClassNo());
-//                }
-//            }
-//
-//            return attendanceMapper.toDtoList(attendances);
-//        }
-//        return Collections.emptyList();
-//    }
-
-
 
     @GetMapping("/get_by_id/{courseId}/{cycleId}/{classNo}/{studentId}")
     public ResponseEntity<AttendanceDto> getAttendanceById(@PathVariable Long courseId, @PathVariable Long cycleId, @PathVariable Long classNo, @PathVariable Long studentId) {
         Optional<Attendance> attendance = attendanceService.getAttendanceById(new AttendanceId(new ClassId(courseId, cycleId, classNo), studentId));
+
         if (attendance.isPresent()) {
             return ResponseEntity.ok(attendanceMapper.toDto(attendance.get()));
         }
         return ResponseEntity.notFound().build();
     }
 
-
     // return massage save successfully
     //use another endpoint to check the data already saved and return the massage
     @PostMapping("/save/{courseId}/{cycleId}/{classNo}/{studentId}")   // ?
-    public AttendanceDto saveAttendance(@PathVariable Long courseId, @PathVariable Long cycleId, @PathVariable Long classNo, @PathVariable Long studentId  , @RequestBody AttendanceDto attendanceDto) {
-       Attendance attendance = attendanceMapper.toEntity(attendanceDto);
-       attendance.setId(new AttendanceId(new ClassId(courseId, cycleId, classNo), studentId));
+    public AttendanceDto saveAttendance(@PathVariable Long courseId, @PathVariable Long cycleId, @PathVariable Long classNo, @PathVariable Long studentId, @RequestBody AttendanceDto attendanceDto) {
+        Attendance attendance = attendanceMapper.toEntity(attendanceDto);
+        attendance.setId(new AttendanceId(new ClassId(courseId, cycleId, classNo), studentId));
         return attendanceMapper.toDto(attendanceService.saveAttendance(attendance));
     }
 
     // ubdate
     @PutMapping("/update/{courseId}/{cycleId}/{classNo}/{studentId}")
-    public ResponseEntity<AttendanceDto> updateAttendance(@PathVariable Long courseId, @PathVariable Long cycleId, @PathVariable Long classNo, @PathVariable Long studentId  ,  @RequestBody AttendanceDto attendanceDto) {
+    public ResponseEntity<AttendanceDto> updateAttendance(@PathVariable Long courseId, @PathVariable Long cycleId, @PathVariable Long classNo, @PathVariable Long studentId, @RequestBody AttendanceDto attendanceDto) {
         Optional<Attendance> attendance = attendanceService.getAttendanceById(new AttendanceId(new ClassId(courseId, cycleId, classNo), studentId));
         if (attendance.isPresent()) {
             attendanceService.saveAttendance(attendanceMapper.toEntity(attendanceDto));
@@ -111,7 +79,6 @@ public class AttendanceController {
         }
         return ResponseEntity.notFound().build();
     }
-
 
 
 }

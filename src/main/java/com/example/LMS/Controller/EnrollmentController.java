@@ -1,21 +1,21 @@
 package com.example.LMS.Controller;
 
 
-
-
-import java.util.Collections;
-import java.util.List;
-
 import com.example.LMS.Models.dto.EnrollmentDto;
 import com.example.LMS.Models.entity.Enrollment;
+import com.example.LMS.Models.entity.EnrollmentId;
 import com.example.LMS.Models.mappers.EnrollmentMapper;
 import com.example.LMS.Service.utils.EnrollmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/api/enrollments")
+@RequestMapping("/v1/enrollments")
 public class EnrollmentController {
 
     @Autowired
@@ -23,7 +23,6 @@ public class EnrollmentController {
 
     @Autowired
     private EnrollmentMapper enrollmentMapper;
-
 
 
     @GetMapping("/all")
@@ -35,32 +34,35 @@ public class EnrollmentController {
         return Collections.emptyList();
     }
 
+    @GetMapping("/get_by_id/{course_id}/{cycle_id}/{student_id}")
+    public ResponseEntity<EnrollmentDto> getEnrollmentById(@PathVariable Long course_id, @PathVariable Long cycle_id, @PathVariable Long student_id) {
 
+        Optional<Enrollment> enrollment = Optional.ofNullable(enrollmentService.getEnrollmentById(new EnrollmentId(course_id, cycle_id, student_id)));
 
-
-
-
-
-    @GetMapping("/{courseId}/{cycleId}/{studentId}")
-    public Enrollment getEnrollmentById(@PathVariable String courseId, @PathVariable String cycleId, @PathVariable String studentId) {
-        return enrollmentService.getEnrollmentById(courseId, cycleId, studentId);
+        if (enrollment.isPresent()) {
+            return ResponseEntity.ok(enrollmentMapper.toDto(enrollment.get()));
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
-    public Enrollment createEnrollment(@RequestBody Enrollment enrollment) {
-        return enrollmentService.createEnrollment(enrollment);
+    @PostMapping("/save")
+    public ResponseEntity<EnrollmentDto> createEnrollment(@RequestBody EnrollmentDto enrollmentDto) {
+        Enrollment enrollment = enrollmentMapper.toEntity(enrollmentDto);
+        return ResponseEntity.ok(enrollmentMapper.toDto(enrollmentService.createEnrollment(enrollment)));
     }
 
-    @PutMapping("/{courseId}/{cycleId}/{studentId}")
-    public Enrollment updateEnrollment(@PathVariable String courseId, @PathVariable String cycleId, @PathVariable String studentId, @RequestBody Enrollment enrollment) {
-        return enrollmentService.updateEnrollment(courseId, cycleId, studentId, enrollment);
+    @PutMapping("/update")
+    public ResponseEntity<EnrollmentDto> updateEnrollment(@PathVariable Long course_id, @PathVariable Long cycle_id, @PathVariable Long student_id, @RequestBody EnrollmentDto enrollmentDto) {
+        Enrollment enrollment = enrollmentMapper.toEntity(enrollmentDto);
+        enrollment.setId(new EnrollmentId(course_id, cycle_id, student_id));
+        return ResponseEntity.ok(enrollmentMapper.toDto(enrollmentService.createEnrollment(enrollment)));
     }
 
-    @DeleteMapping("/{courseId}/{cycleId}/{studentId}")
-    public ResponseEntity<Void> deleteEnrollment(@PathVariable String courseId, @PathVariable String cycleId, @PathVariable String studentId) {
-        enrollmentService.deleteEnrollment(courseId, cycleId, studentId);
-        return ResponseEntity.noContent().build();
-    }
 
+    @DeleteMapping("/delete/{course_id}/{cycle_id}/{student_id}")
+    public ResponseEntity<Void> deleteEnrollment(@PathVariable Long course_id, @PathVariable Long cycle_id, @PathVariable Long student_id) {
+        enrollmentService.deleteEnrollment(new EnrollmentId(course_id, cycle_id, student_id));
+        return ResponseEntity.ok().build();
+    }
 
 }

@@ -40,7 +40,6 @@ public class Class {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id", nullable = false, insertable = false, updatable = false)
-    //
     private Teacher teacher;
 
 

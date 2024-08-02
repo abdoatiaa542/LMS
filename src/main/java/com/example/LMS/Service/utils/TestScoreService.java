@@ -1,16 +1,13 @@
 package com.example.LMS.Service.utils;
 
 
-
+import com.example.LMS.Models.entity.TestScore;
 
 import java.util.List;
-import com.example.LMS.Models.entity.TestScore;
-import com.example.LMS.Models.entity.TestScoreId;
 
 public interface TestScoreService {
     List<TestScore> getAllTestScores();
-    TestScore getTestScoreById(TestScoreId id);
+    TestScore getTestScoreById(Long id);
     TestScore createTestScore(TestScore testScore);
-//    TestScore updateTestScore(TestScoreId id, TestScore testScore);
-    void deleteTestScore(TestScoreId id);
+    void deleteTestScore(Long id);
 }

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/course-per-cycle")
+@RequestMapping("/v1/course_per_cycle")
 public class CoursePerCycleController {
 
     @Autowired
@@ -43,6 +43,31 @@ public class CoursePerCycleController {
         return ResponseEntity.notFound().build();
     }
 
+    // create endpoint to save course_per_cycle
+
+    @PostMapping("/save")
+    public ResponseEntity<CoursePerCycleDto> createCoursePerCycle(@RequestBody CoursePerCycleDto coursePerCycleDto) {
+        CoursePerCycle coursePerCycle = coursePerCycleMapper.toEntity(coursePerCycleDto);
+        CoursePerCycle createdCoursePerCycle = coursePerCycleService.createCoursePerCycle(coursePerCycle);
+        return ResponseEntity.ok(coursePerCycleMapper.toDto(createdCoursePerCycle));
+
+    }
+
+    // create endpoint to update course_per_cycle
+    @PutMapping("/update/{courseId}/{cycleId}")
+    public ResponseEntity<CoursePerCycleDto> updateCoursePerCycle(@PathVariable Long courseId, @PathVariable Long cycleId, @RequestBody CoursePerCycleDto coursePerCycleDto) {
+        CoursePerCycle coursePerCycle = coursePerCycleMapper.toEntity(coursePerCycleDto);
+        CoursePerCycle updatedCoursePerCycle = coursePerCycleService.updateCoursePerCycle(new CoursePerCycleId(courseId, cycleId), coursePerCycle);
+        return ResponseEntity.ok(coursePerCycleMapper.toDto(updatedCoursePerCycle));
+
+    }
+    // create endpoint to delete course_per_cycle
+
+    @DeleteMapping("/delete/{courseId}/{cycleId}")
+    public ResponseEntity<Void> deleteCoursePerCycle(@PathVariable Long courseId, @PathVariable Long cycleId) {
+        coursePerCycleService.deleteCoursePerCycle(new CoursePerCycleId(courseId, cycleId));
+        return ResponseEntity.noContent().build();
+    }
 
 }
 

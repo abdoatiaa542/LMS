@@ -5,7 +5,9 @@ import com.example.LMS.Models.entity.Teacher;
 import com.example.LMS.Models.mappers.TeacherMapper;
 import com.example.LMS.Service.imp.Users.TeacherServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -14,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/teachers")
+@RequestMapping("/v1/teachers")
 public class TeacherController {
 
     @Autowired
@@ -22,6 +24,33 @@ public class TeacherController {
 
     @Autowired
     private TeacherMapper teacherMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
+    @PostMapping("/register/teacher")
+    public ResponseEntity<String> registerteacher(@RequestBody TeacherDto teacherDto) {
+        try {
+//            System.out.println(" i am in controller ");
+//            System.out.println(teacherDto.getPassword() + "\n" + teacherDto.getName() + "\n" + teacherDto.getEmail() + "\n" + teacherDto.getPhone_no() + "\n");
+            Teacher entity = teacherMapper.toEntity(teacherDto);
+//            System.out.println(entity.getPassword() + "\n" + entity.getName() + "\n" + entity.getEmail() + "\n" + entity.getPhone_no() + "\n");
+
+            String encodedPassword = passwordEncoder.encode(entity.getPassword());
+            entity.setPassword(encodedPassword);
+            Teacher savedteacher = teacherService.savaTeacher(entity);
+
+            if (savedteacher.getTeacherId() > 0) {
+                return ResponseEntity.status(HttpStatus.CREATED).body("user created successfully");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("user registration failed");
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
 
     @GetMapping("/all")
@@ -43,12 +72,14 @@ public class TeacherController {
         return ResponseEntity.notFound().build();
     }
 
+
     @PostMapping("/save")
     public TeacherDto createTeacher(@RequestBody TeacherDto teacher) {
         // to entity
         Teacher teacherEntity = teacherMapper.toEntity(teacher);
-        return teacherMapper.toDto(teacherService.createTeacher(teacherEntity));
+        return teacherMapper.toDto(teacherService.savaTeacher(teacherEntity));
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<TeacherDto> updateTeacher(@PathVariable Long id, @RequestBody TeacherDto teacherDetails) {
@@ -63,4 +94,6 @@ public class TeacherController {
         teacherService.deleteTeacher(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }

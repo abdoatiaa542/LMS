@@ -11,7 +11,6 @@ import com.example.LMS.Models.entity.ClassId;
 public interface ClassService {
     List<Class> getAllClasses();
     Class getClassById(ClassId id);
-    Class createClass(Class sclass);
-    Class updateClass( Class sclass);
+    Class saveClass(Class sclass);
     void deleteClass(ClassId id);
 }

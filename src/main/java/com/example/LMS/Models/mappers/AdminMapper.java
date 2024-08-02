@@ -1,7 +1,7 @@
 package com.example.LMS.Models.mappers;
 
-import com.example.LMS.Models.dto.AdminDto;
-import com.example.LMS.Models.entity.Admin;
+import com.example.LMS.Models.dto.UsersDto;
+import com.example.LMS.Models.entity.Users;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -9,11 +9,12 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface AdminMapper {
-    Admin toEntity(AdminDto adminDto);
+    Users toEntity(UsersDto usersDto);
 
-    AdminDto toDto(Admin admin);
+    UsersDto toDto(Users users);
 
-    List<AdminDto> toDtoList(List<Admin> admins);
+    List<UsersDto> toDtoList(List<Users> users);
+
 
 //    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE) // ?
 //    Admin partialUpdate(AdminDto adminDto, @MappingTarget Admin admin);

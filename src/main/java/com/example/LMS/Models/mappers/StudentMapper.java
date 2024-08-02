@@ -8,6 +8,8 @@ import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface StudentMapper {
+
+
     Student toEntity(StudentDto studentDto);
 
     StudentDto toDto(Student student);

@@ -1,16 +1,15 @@
 package com.example.LMS.Reposatory.Users;
 
 
-import com.example.LMS.Models.entity.Admin;
+import com.example.LMS.Models.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface AdminRepository extends JpaRepository<Admin, Long> {
+public interface UsersRepository extends JpaRepository<Users, Long> {
 
-    Optional<Admin> findByUsername(String username);
-
+    Optional<Users> findByEmail(String email);
 
 }

@@ -2,11 +2,17 @@ package com.example.LMS.Service.utils;
 
 
 import java.util.List;
+
 import com.example.LMS.Models.entity.Enrollment;
+import com.example.LMS.Models.entity.EnrollmentId;
+
 public interface EnrollmentService {
     List<Enrollment> getAllEnrollments();
-    Enrollment getEnrollmentById(String courseId, String cycleId, String studentId);
+
+    Enrollment getEnrollmentById(EnrollmentId enrollmentId);
+
     Enrollment createEnrollment(Enrollment enrollment);
-    Enrollment updateEnrollment(String courseId, String cycleId, String studentId, Enrollment enrollment);
-    void deleteEnrollment(String courseId, String cycleId, String studentId);
+
+
+    void deleteEnrollment(EnrollmentId enrollmentId);
 }

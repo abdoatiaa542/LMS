@@ -1,6 +1,7 @@
 package com.example.LMS.Service.imp;
 
 import com.example.LMS.Service.utils.CourseService;
+import com.example.LMS.exception.common.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +21,14 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findAll();
     }
 
+
     @Override
     public Course getCourseById(Long id) {
         return courseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + id));
     }
+
+
 
     @Override
     public Course createCourse(Course course) {

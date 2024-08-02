@@ -8,8 +8,10 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Setter
+@Table(name = "teacher")
 @Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Teacher {
@@ -18,23 +20,17 @@ public class Teacher {
     @Column(name = "teacher_id")
     private Long teacherId;
 
-
-
     @Column(nullable = false, length = 100)
     private String name;
 
     @Column(nullable = false, length = 100)
     private String email;
 
-    @Column(nullable = false, length = 30)
-    private String phoneNo;
+    @Column( nullable = false, length = 30)
+    private String phone_no;
 
     @Column(nullable = false, length = 100)
     private String password;
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    private List<String> teacherAuthorities;
-
 
 
     @ManyToMany(mappedBy = "teachers")
@@ -44,21 +40,6 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher")
     private List<Class> classes;
 
-
-
-    public Teacher() {
-
-    }
-
-    public Teacher(Long teacherId, String name, String email, String phoneNo, List<CoursePerCycle> coursePerCycles, String password, List<String> teacherAuthorities) {
-        this.teacherId = teacherId;
-        this.name = name;
-        this.email = email;
-        this.phoneNo = phoneNo;
-        this.coursePerCycles = coursePerCycles;
-        this.password = password;
-        this.teacherAuthorities = teacherAuthorities;
-    }
 
 
 }

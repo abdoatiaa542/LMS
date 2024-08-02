@@ -26,6 +26,8 @@ public class Tests {
     List<TestScore> testScores;
 
 
+
+
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "course_id", referencedColumnName = "course_id" , insertable = false, updatable = false),
