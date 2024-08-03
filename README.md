@@ -26,13 +26,8 @@ This project is a Learning Management System (LMS) developed using Spring Boot 3
   - Git for version control
   - Maven for build automation
   - Lombok for boilerplate code reduction
- 
-
-
-
 
 
 The following diagram represents the database schema for the Learning Management System (LMS), showcasing the relationships between various entities such as students, teachers, courses, and enrollments:
 
 ![Database Schema](https://github.com/user-attachments/assets/8b90c18a-a817-40a8-87bf-80000e6c4e75)
-
