@@ -29,10 +29,3 @@ This project is a Learning Management System (LMS) developed using Spring Boot 3
 
 ## Getting Started
 
-### Prerequisites
-
-- Java 21
-- Maven
-- MySQL
-
-
