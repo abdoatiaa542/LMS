@@ -28,3 +28,4 @@ This project is a Learning Management System (LMS) developed using Spring Boot 3
   - Lombok for boilerplate code reduction
 
 
+![image](https://github.com/user-attachments/assets/8b90c18a-a817-40a8-87bf-80000e6c4e75)
