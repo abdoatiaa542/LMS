@@ -27,5 +27,4 @@ This project is a Learning Management System (LMS) developed using Spring Boot 3
   - Maven for build automation
   - Lombok for boilerplate code reduction
 
-## Getting Started
 
